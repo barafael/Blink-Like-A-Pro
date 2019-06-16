@@ -20,28 +20,28 @@ typedef unsigned long uint32_t;
 
 /* Crude delay function */
 void delay(uint32_t count) {
-	for(int i = 0; i < count; i++) {
-		__asm__("nop");
-	}
+    for (int i = 0; i < count; i++) {
+        __asm__("nop");
+    }
 }
 
 int main() {
     /* Initialize APB2 (Advanced Peripheral Bus 2) */
-	*RCC_APB2ENR = 0x10;
+    *RCC_APB2ENR = 0x10;
     /* Set GPIO port C pin 13 as output */
-	*GPIOC_MODER |= 0x200000;
+    *GPIOC_MODER |= 0x200000;
 
     /* Set and Reset Output Data Register of PC13 */
-	while(1) {
-		*GPIOC_ODR = 0x2000;
-		delay(200000);
-		*GPIOC_ODR = 0x0;
-		delay(200000);
-	}
+    while (1) {
+        *GPIOC_ODR = 0x2000;
+        delay(200000);
+        *GPIOC_ODR = 0x0;
+        delay(200000);
+    }
 }
 
 /* Interrupt vector at start of flash (see linker script) */
-uint32_t *vector_table[] __attribute__((section(".isr_vector"))) = {
-	(uint32_t*)SRAM_END, // initial stack pointer
-	(uint32_t*)main      // main as reset handler
+uint32_t* vector_table[] __attribute__((section(".isr_vector"))) = {
+    (uint32_t*)SRAM_END, // initial stack pointer
+    (uint32_t*)main // main as reset handler
 };
