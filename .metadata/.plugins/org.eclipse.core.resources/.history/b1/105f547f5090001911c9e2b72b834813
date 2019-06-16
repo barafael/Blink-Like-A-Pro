@@ -1,0 +1,43 @@
+typedef unsigned long uint32_t;
+
+/* Memory and peripheral start addresses (common to all STM32 MCUs) */
+#define FLASH_BASE 0x08000000
+#define SRAM_BASE 0x20000000
+#define PERIPH_BASE 0x40000000
+
+/* Work out end of RAM address as initial stack pointer
+ * (specific of a given STM32 MCU */
+#define SRAM_SIZE 64*1024
+// STM32F401RE has 96 KB of RAM
+#define SRAM_END (SRAM_BASE + SRAM_SIZE)
+/* RCC peripheral addresses applicable to GPIOA
+ * (specific of a given STM32 MCU */
+#define RCC_BASE (PERIPH_BASE + 0x21000)
+#define RCC_APB2ENR ((uint32_t*)(RCC_BASE + 0x18))
+/* GPIOC peripheral addresses
+ * (specific of a given STM32 MCU */
+#define GPIOC_BASE (PERIPH_BASE + 0x20000)
+#define GPIOC_MODER ((uint32_t*)(GPIOC_BASE + 0x00))
+#define GPIOC_ODR ((uint32_t*)(GPIOC_BASE + 0x14))
+/* User functions */
+int main(void);
+void delay(uint32_t count);
+/* Minimal vector table */
+uint32_t *vector_table[] __attribute__((section(".isr_vector"))) = {
+		(uint32_t *) SRAM_END,
+		// initial stack pointer
+		(uint32_t *) main
+// main as Reset_Handler
+		};
+int main() {
+	/* Enable clock on GPIOA peripheral */
+	*RCC_APB1ENR = 0x1;
+	/* Configure the PA5 as output pull-up */
+	*GPIOA_MODER |= 0x400; // Sets MODER[11:10] = 0x1
+	while (1) {
+		*GPIOA_ODR = 0x20;
+		delay(200000);
+		*GPIOA_ODR = 0x0;
+		delay(200000);
+	}
+}

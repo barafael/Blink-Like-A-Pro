@@ -1,0 +1,6 @@
+1560685077805	Delete resource 'RTC_Alarm'
+1560685083627	Delete resource 'STM32F103RB_Nucleo'
+1560685671073	Delete resource 'blinky-rtc'
+1560697659274	Rename resource 'blinky-busywait'
+1560697668857	Rename resource 'blinky-busywait-simple'
+1560718394239	Delete resource 'blinky-busywait-HAL'

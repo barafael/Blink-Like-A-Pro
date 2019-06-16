@@ -1,0 +1,60 @@
+13:47:25 **** Incremental Build of configuration Debug for project blinky-rtc ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32F103xB -DDEBUG -c -I../Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+../Src/main.c: In function 'HAL_RTC_AlarmEventCallback':
+../Src/main.c:79:21: error: 'RTC_TimeTypeDef {aka struct <anonymous>}' has no member named 'TimeFormat'
+     sAlarm.AlarmTime.TimeFormat = RTC_HOURFORMAT12_AM;
+                     ^
+../Src/main.c:79:35: error: 'RTC_HOURFORMAT12_AM' undeclared (first use in this function); did you mean 'RTC_FORMAT_BCD'?
+     sAlarm.AlarmTime.TimeFormat = RTC_HOURFORMAT12_AM;
+                                   ^~~~~~~~~~~~~~~~~~~
+                                   RTC_FORMAT_BCD
+../Src/main.c:79:35: note: each undeclared identifier is reported only once for each function it appears in
+../Src/main.c:80:21: error: 'RTC_TimeTypeDef {aka struct <anonymous>}' has no member named 'DayLightSaving'
+     sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+                     ^
+../Src/main.c:80:39: error: 'RTC_DAYLIGHTSAVING_NONE' undeclared (first use in this function)
+     sAlarm.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
+                                       ^~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:81:21: error: 'RTC_TimeTypeDef {aka struct <anonymous>}' has no member named 'StoreOperation'
+     sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
+                     ^
+../Src/main.c:81:39: error: 'RTC_STOREOPERATION_RESET' undeclared (first use in this function)
+     sAlarm.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
+                                       ^~~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:82:12: error: 'RTC_AlarmTypeDef {aka struct <anonymous>}' has no member named 'AlarmMask'; did you mean 'AlarmTime'?
+     sAlarm.AlarmMask = RTC_ALARMMASK_SECONDS;
+            ^~~~~~~~~
+            AlarmTime
+../Src/main.c:82:24: error: 'RTC_ALARMMASK_SECONDS' undeclared (first use in this function); did you mean 'RTC_AUTO_1_SECOND'?
+     sAlarm.AlarmMask = RTC_ALARMMASK_SECONDS;
+                        ^~~~~~~~~~~~~~~~~~~~~
+                        RTC_AUTO_1_SECOND
+../Src/main.c:83:11: error: 'RTC_AlarmTypeDef {aka struct <anonymous>}' has no member named 'AlarmDateWeekDaySel'
+     sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+           ^
+../Src/main.c:83:34: error: 'RTC_ALARMDATEWEEKDAYSEL_DATE' undeclared (first use in this function)
+     sAlarm.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
+                                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Src/main.c:84:11: error: 'RTC_AlarmTypeDef {aka struct <anonymous>}' has no member named 'AlarmDateWeekDay'
+     sAlarm.AlarmDateWeekDay = 1;
+           ^
+../Src/main.c:86:41: error: 'FORMAT_BCD' undeclared (first use in this function); did you mean 'RTC_FORMAT_BCD'?
+     HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, FORMAT_BCD);
+                                         ^~~~~~~~~~
+                                         RTC_FORMAT_BCD
+../Src/main.c:86:25: warning: passing argument 1 of 'HAL_RTC_SetAlarm_IT' from incompatible pointer type [-Wincompatible-pointer-types]
+     HAL_RTC_SetAlarm_IT(&hrtc, &sAlarm, FORMAT_BCD);
+                         ^
+In file included from ../Inc/stm32f1xx_hal_conf.h:291:0,
+                 from ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:46,
+                 from ../Inc/main.h:31,
+                 from ../Src/main.c:22:
+../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc.h:530:19: note: expected 'RTC_HandleTypeDef * {aka struct <anonymous> *}' but argument is of type 'RTC_HandleTypeDef ** {aka struct <anonymous> **}'
+ HAL_StatusTypeDef HAL_RTC_SetAlarm_IT(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sAlarm, uint32_t Format);
+                   ^~~~~~~~~~~~~~~~~~~
+make: *** [Src/subdir.mk:33: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+13:47:26 Build Failed. 13 errors, 1 warnings. (took 773ms)
+
