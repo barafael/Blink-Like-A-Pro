@@ -37,8 +37,8 @@ blinky-bitbanding.list \
 all: blinky-bitbanding.elf secondary-outputs
 
 # Tool invocations
-blinky-bitbanding.elf: $(OBJS) $(USER_OBJS) /home/rb/STM32CubeIDE/workspace_1.0.0/blinky-bitbanding/STM32F103C8TX_FLASH.ld
-	arm-none-eabi-gcc -o "blinky-bitbanding.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/rb/STM32CubeIDE/workspace_1.0.0/blinky-bitbanding/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="blinky-bitbanding.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+blinky-bitbanding.elf: $(OBJS) $(USER_OBJS) /home/rb/Code/Blink-Like-A-Pro/blinky-bitbanding/STM32F103C8TX_FLASH.ld
+	arm-none-eabi-gcc -o "blinky-bitbanding.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/rb/Code/Blink-Like-A-Pro/blinky-bitbanding/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="blinky-bitbanding.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

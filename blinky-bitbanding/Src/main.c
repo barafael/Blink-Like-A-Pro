@@ -39,6 +39,17 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
+// Calculate bit banding register for GPIOC pin 13
+
+#define BITBANDING_PERIPHERAL_BASE (uint32_t)0x42000000
+#define GPIOC_ODR_BYTE_OFFSET (uint32_t)0x1100C
+#define PIN13_BIT_OFFSET (uint32_t)0xD
+
+#define BITBANDING_REGISTER(periph_base, byte_offset, bit_offset) \
+	(periph_base) + \
+	(byte_offset * 0x20) + \
+	(bit_offset * 0x4)
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -89,7 +100,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  uint32_t *led_reg = (uint32_t *) BITBANDING_REGISTER(
+		  BITBANDING_PERIPHERAL_BASE,
+		  GPIOC_ODR_BYTE_OFFSET,
+		  PIN13_BIT_OFFSET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -97,7 +111,7 @@ int main(void)
   while (1)
   {
 	HAL_Delay(400);
-	*((uint32_t *) 0x422201B4) ^= 1;
+	*led_reg ^= 1;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

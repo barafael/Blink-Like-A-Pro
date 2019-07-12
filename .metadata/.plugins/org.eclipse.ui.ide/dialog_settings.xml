@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="/home/rb/Code/Blink-Like-A-Pro/blinky-DMA-Bitbanding"/>
+		<item value="/home/rb/Code/Blink-Like-A-Pro/blinky-bitbanding"/>
 		<item value="/home/rb/STM32Cube/Repository/STM32Cube_FW_F1_V1.7.0/Projects/STM32F103RB-Nucleo/Examples/RTC/RTC_Alarm"/>
 	</list>
 	<section name="ResourceNavigator">
 		<item key="ResourceViewer.STORE_SORT_TYPE" value="1"/>
 	</section>
 	<section name="CleanDialogSettings">
-		<item key="DIALOG_X_ORIGIN" value="2118"/>
-		<item key="DIALOG_Y_ORIGIN" value="662"/>
-		<item key="DIALOG_WIDTH" value="490"/>
-		<item key="DIALOG_HEIGHT" value="425"/>
+		<item key="DIALOG_X_ORIGIN" value="1421"/>
+		<item key="DIALOG_Y_ORIGIN" value="574"/>
+		<item key="DIALOG_WIDTH" value="499"/>
+		<item key="DIALOG_HEIGHT" value="461"/>
 		<item key="TOGGLE_SELECTED" value="false"/>
 	</section>
 </section>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;blinky-DMA-Bitbanding/blinky-DMA.ioc&apos; to &apos;blinky-DMA-bitbanding.ioc&apos;" description="Rename resource &apos;blinky-DMA.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="blinky-DMA.ioc" name="blinky-DMA-bitbanding.ioc" stamp="1562965693704" updateReferences="true"/>
+</session>
