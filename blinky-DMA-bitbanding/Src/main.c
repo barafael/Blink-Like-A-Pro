@@ -103,12 +103,16 @@ int main(void)
   MX_DMA_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
+  /*while(1) {
+	  HAL_Delay(500);
+	  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+  }*/
   uint32_t *led_reg = (uint32_t *) BITBANDING_REGISTER(
 		  BITBANDING_PERIPHERAL_BASE,
 		  GPIOC_ODR_BYTE_OFFSET,
 		  PIN13_BIT_OFFSET);
 
-  HAL_DMA_Start(&hdma_tim4_up, (uint32_t)data, led_reg, 2);
+  HAL_DMA_Start(&hdma_tim4_up, (uint32_t)data, (uint32_t)led_reg, 2);
   HAL_TIM_Base_Start(&htim4);
   __HAL_TIM_ENABLE_DMA(&htim4, TIM_DMA_UPDATE);
   /* USER CODE END 2 */

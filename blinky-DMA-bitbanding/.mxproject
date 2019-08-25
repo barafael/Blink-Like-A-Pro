@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=/home/rb/Code/Blink-Like-A-Pro/blinky-DMA/Inc
+HeaderPath=/home/rb/Code/Blink-Like-A-Pro/blinky-DMA-bitbanding/Inc
 HeaderFiles=stm32f1xx_it.h;stm32f1xx_hal_conf.h;main.h;
-SourcePath=/home/rb/Code/Blink-Like-A-Pro/blinky-DMA/Src
+SourcePath=/home/rb/Code/Blink-Like-A-Pro/blinky-DMA-bitbanding/Src
 SourceFiles=stm32f1xx_it.c;stm32f1xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]

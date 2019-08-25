@@ -27,9 +27,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000029  00000000  00000000  0002000c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000cf00  00000000  00000000  00020035  2**0
+ 12 .debug_info   0000cf01  00000000  00000000  00020035  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_abbrev 00001b0f  00000000  00000000  0002cf35  2**0
+ 13 .debug_abbrev 00001b0f  00000000  00000000  0002cf36  2**0
                   CONTENTS, READONLY, DEBUGGING
  14 .debug_aranges 00000908  00000000  00000000  0002ea48  2**3
                   CONTENTS, READONLY, DEBUGGING
@@ -4104,6 +4104,10 @@ int main(void)
   MX_TIM4_Init();
  800178e:	f000 f85b 	bl	8001848 <MX_TIM4_Init>
   /* USER CODE BEGIN 2 */
+  /*while(1) {
+	  HAL_Delay(500);
+	  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+  }*/
   uint32_t *led_reg = (uint32_t *) BITBANDING_REGISTER(
  8001792:	4b0a      	ldr	r3, [pc, #40]	; (80017bc <main+0x4c>)
  8001794:	607b      	str	r3, [r7, #4]
@@ -4111,7 +4115,7 @@ int main(void)
 		  GPIOC_ODR_BYTE_OFFSET,
 		  PIN13_BIT_OFFSET);
 
-  HAL_DMA_Start(&hdma_tim4_up, (uint32_t)data, led_reg, 2);
+  HAL_DMA_Start(&hdma_tim4_up, (uint32_t)data, (uint32_t)led_reg, 2);
  8001796:	4639      	mov	r1, r7
  8001798:	687a      	ldr	r2, [r7, #4]
  800179a:	2302      	movs	r3, #2
