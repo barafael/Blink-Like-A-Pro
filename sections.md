@@ -1,7 +1,13 @@
 # Intro
 About me (studied here, work now)
 Quick facts about my interests: systems software that does not (and must not) fail.
-Quick funny rant about work place (TODO get factoids from notebook)
+Quick funny rant about work place:
+Frontend dev at MEN: show front plate of Sirti, AF2, BL72e etc.
+Computers with 2010 intel atom that cost 35000 euros and weigh 12 kilograms
+Large customers, SIL4 stuff, SIL2 stuff, SIL0 stuff. Some OS licenses are in the 10000s
+FPGA Quartus 6-15, C++ considered modern (mostly C)
+Shy away from implementing features (even safety features) because they would have to be certified
+C++ vtables and other features reimplemented in C
 
 Last talk was about getting hardware to run. Now, I work at a company where people are paid to do this right for me.
 So this talk is about embedded software.
