@@ -9,37 +9,79 @@ FPGA Quartus 6-15, C++ considered modern (mostly C)
 Shy away from implementing features (even safety features) because they would have to be certified
 C++ vtables and other features reimplemented in C
 
-Last talk was about getting hardware to run. Now, I work at a company where people are paid to do this right for me.
+Last talk here was about getting hardware to run. Now, I work at a company where people are paid to do this right for me.
 So this talk is about embedded software.
 Goal is not to teach C or C++, and goal is not to make you embedded developer in 45 minutes (that's a different talk).
 Instead, goal is to give a quick safari about the topics I find important for getting started/intermediate level.
 
-# Blocking Blinky
-Show basic blinky (with registers/assembler/linker, bare minimum example) - this will frighten some.
-Then use C and the ST HAL and CubeMX with debugger and SFR view. Little joke: kill debugging pins from SFR view.
-Emphasize that memory is not just flip flops - there could be a gpio pin, or any other periphery.
-Reading/writing to memory in C: *0xdeadbeef = SOME_VALUE; might not store SOME_VALUE, there can be just any periphery at 0xdeadbeef.
-Emphasize that we are using the processor to put bits in registers by showing a simple blocking UART with sermon.
-Show non-blocking sequential without delay - this is essentially a form of 'yield' with scheduler.
+# Basic Blocking Blinky
+* Show basic blinky (with registers/assembler/linker, bare minimum example) - this is a bit frightening, shows value of cubemx and HAL.
+* Then use C and the ST HAL and CubeMX.
+* Follow through HAL functions: what do they do? Set some registers.
+* Debugger and SFR view ODR. Kill debugging pins from SFR view.
 
-# Timer Blinky
-Theory: in the previous example, what was HAL_Delay(millis)? Based on clock cycles? Could be, but not portable and inaccurate.
+# In General: Memory Mapped Peripherals
+* Usually, *0xcafebabe = 0x1 stores a 1 in memory
+* But actually: what looks like a memory address might not be one!
+* Some registers (addresses) have Special Functions (they are not memory cells)
+
+# Examples
+* Write 0x1 to 0xcafebeef turns LED on
+* If 0xdadcraf7 == 0x32afcafe, then ADC sample can be read from 0x0ADCDA7A
+
+# Nothing "makes sense"
+* Memory Mapping: Arbitrary set of contracts
+* Defined by cryptic names in data sheet, depending on how peripherals are connected (we will get to that)
+  - Setting a bit in a register somewhere might brick your controller or set your rocket on fire
+  (as opposed to just a SEGFAULT in other systems)
+  - Other talk: Scary Introduction to Embedded Systems (Everything is globally mutable state)
+
+Emphasize that we are using the processor to put bits in registers by showing a simple blocking UART with sermon.
+
+# (Short Aside) Asynchronous Approaches
+* delay is not good!
+* Manual 'yield' does not scale too well
+    - if (elapsedTime > 500) { doThing() }
+    - essentially, manual collaborative multitasking
+* RTOS, but then you have to deal with actual concurrency
+    - At each blocking call, scheduler switches tasks
+    - Show how simple setting up freertos is in CubeMX. Start a few tasks.
+    - What is the benefit? Decoupling, and a cheap way to REDUCE power consumption (wfi, tickless wait).
+
+# Asynchronous Timer Blinky
+Theory: in the blinky example, what was HAL_Delay(millis)? Based on clock cycles? Could be, but not portable and inaccurate.
 Instead: a timer is used. Explain counter, PERIOD, PRESCALER, equation.
 Show timer config in Cube. Show Clock Tree in Cube.
 Theory: interrupts. Discuss asynchronicity, how the real world is really asynchronous and parallel, and blocking waiting is bad when you want to do any work (might miss events).
 Discuss interrupt priorities, preemption levels, NVIC? There is no back-preemption, without scheduler, hence stupid lock is safe.
-Show interrupt on timer update / output compare event. Toggle LED. Main loop is empty! But processor is still busy shuffling bits around.
+Show interrupt on timer update event. Toggle LED. Main loop is empty! But processor is still busy shuffling bits around.
 To emphasize, show reading the ADC with interrupts. Show value in STM Studio? Would need windows. Or segger system view?
 
+# In General: Busses, Masters, Arbitration
+* What happens really when we access a memory location?
+* SRAM/Flash Memory and most Peripherals are attached to the same bus system
+* CPU acts as a master (triggers bus transfers)
+* Arbitration happens automatically in hardware (bus stalls, round robin)
+
+Image: Bus Matrix
+
+# Consequences
+* Very often, data must be moved from some address to some other address
+    - Especially for communication peripherals or for fast measurements
+    - Peripheral to memory (sensor), memory to peripheral (actuator), memory to memory (memcpy)
+* Often used with interrupts
+* Many Load/Stores during an interrupt
+-> Interrupt based systems actually do not have a big performance benefit! CPU still busy.
+
+But wait - there is another master on the bus matrix!
+
 # DMA Blinky
-Theory: data pump. Can be connected by both ends to peripherals or memory. As peripherals just live in the memory layout, moving data to/from there is the same as moving data in memory.
+Theory: data pump. Can be connected by both ends to peripherals or memory.
+Can increment both ends automatically.
 Like memcpy, except that the processor does not move a finger! No interrupts, either.
 Show timer triggering a DMA transfer to GPIOx->BSRR.
+Example: DMA parallel port driver for displays.
 Example: ws2812 driver. Show how C++ can be used together with HAL (friend functions, extern "C", handles, RAII).
-
-# RTOS Blinky
-Show how simple setting up freertos is in CubeMX. Start a few tasks.
-What is the benefit? Decoupling, and a cheap way to REDUCE power consumption (wfi, tickless wait).
 
 # Code Generation Tools
 Shout out to CubeMX. How do they do that?!
@@ -51,6 +93,8 @@ Open new opportunities: Can be mocked, or simulated, great for testing and forma
 Show the GPIO output pin example where a pin cannot be misused as in/output - this is typestate programming.
 I see a lot of potential for Rust for systems software that must be highly robust and performant.
 Damn it! I did it again. I turned a perfectly fine talk into a Rust commercial.
-The downside is apparent: C is way simpler initially. The ecosystem is still changing rapidly. Rust is very challenging and rewarding to learn.
+The downside is apparent: C is way simpler initially. The ecosystem is still changing rapidly. Rust is challenging to learn.
 
 # Outro
+We saw: memory mapping, RTOS, timers, interrupts, DMA, Outlook on software tools and Rust.
+Questions?
