@@ -4,7 +4,7 @@ A blinking LED is the "hello world" of embedded systems, as it is implemented wi
 But beyond the basic blocking blinky, modern microcontrollers offer a dizzying variety of peripherals like timers and DMA controllers.
 These peripherals allow us to overengineer our "blinky" beyond necessity!
 
-Along the way, we will learn how to utilize the advanced asynchronous capabilities of modern ARM MCUs.
+Along the way, we will learn how to utilize the advanced asynchronous capabilities of modern ARM microcontrollers.
 This will allow us to capture data from sensors or communication peripherals while reducing (or even avoiding) interrupt and FIFO usage. For modern applications with power or performance constraints, these techniques are paramount.
 
 We will get a glimpse into MCU debugging techniques, state-of-the-art code generation tools, typestate programming, and basic RTOS use. Finally, we will make use of our new knowledge to create an efficient driver for individually addressable RGB LED strips.
