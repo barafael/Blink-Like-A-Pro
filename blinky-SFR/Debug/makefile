@@ -37,8 +37,8 @@ blinky-SFR.list \
 all: blinky-SFR.elf secondary-outputs
 
 # Tool invocations
-blinky-SFR.elf: $(OBJS) $(USER_OBJS) /home/rb/Code/Blink-Like-A-Pro/blinky-SFR/STM32F103C8TX_FLASH.ld
-	arm-none-eabi-gcc -o "blinky-SFR.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/rb/Code/Blink-Like-A-Pro/blinky-SFR/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="blinky-SFR.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+blinky-SFR.elf: $(OBJS) $(USER_OBJS) /home/ra/Blink-Like-A-Pro/blinky-SFR/STM32F103C8TX_FLASH.ld
+	arm-none-eabi-gcc -o "blinky-SFR.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/ra/Blink-Like-A-Pro/blinky-SFR/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="blinky-SFR.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

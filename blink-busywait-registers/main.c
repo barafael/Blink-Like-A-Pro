@@ -9,7 +9,7 @@ typedef unsigned long uint32_t;
 #define SRAM_SIZE      20 * 1024
 #define SRAM_END       (SRAM_BASE + SRAM_SIZE)
 
-/* STM32F103C8T6 RCC preipheral addresses */
+/* STM32F103C8T6 RCC peripheral addresses */
 #define RCC_BASE       (PERIPH_BASE + 0x21000)
 #define RCC_APB2ENR    ((uint32_t*)(RCC_BASE + 0x18))
 

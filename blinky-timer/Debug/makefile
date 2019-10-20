@@ -37,8 +37,8 @@ blinky-timer.list \
 all: blinky-timer.elf secondary-outputs
 
 # Tool invocations
-blinky-timer.elf: $(OBJS) $(USER_OBJS) /home/rb/Code/Blink-Like-A-Pro/blinky-timer/STM32F103C8TX_FLASH.ld
-	arm-none-eabi-gcc -o "blinky-timer.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/rb/Code/Blink-Like-A-Pro/blinky-timer/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="blinky-timer.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+blinky-timer.elf: $(OBJS) $(USER_OBJS) /home/ra/Blink-Like-A-Pro/blinky-timer/STM32F103C8TX_FLASH.ld
+	arm-none-eabi-gcc -o "blinky-timer.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"/home/ra/Blink-Like-A-Pro/blinky-timer/STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="blinky-timer.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
